@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<body onload="getDate()">
+
+<h2>Serious incident tracker</h2>
+<h4>Last serious incident</h4>
+<div id="last_date"></div>
+<h4>Days since serious incident</h4>
+<div id="txt"></div>
+
+<form method="post" action="/">
+        <input type="submit" value="RESET THE COUNTER" name="reset"/>
+</form>
+
+<div id="d"></div>
+
+<script>
+
+function getDate() {
+  //setdate();
+  const oneDay = 24 * 60 * 60 * 1000;
+  const today = new Date()
+  const StartDate = new Date({{incident_date}})
+  document.getElementById('last_date').innerHTML = StartDate
+  const diffDays = Math.round(Math.abs((StartDate-today)/oneDay));
+  document.getElementById('last_date').innerHTML = StartDate;
+  document.getElementById('txt').innerHTML = diffDays-1;
+  }
+
+function reset() {
+  document.getElementById('txt').innerHTML = 0;
+  document.getElementById('last_date').innerHTML = new Date();
+}
+
+function readDate(){
+  fetch("./date.json")
+ .then((response) => response.json())
+ .then((json) => setData(json));
+}
+
+function setData(data) {
+  console.log(data)
+  document.getElementById('d').innerHTML = data.date;
+}
+</script>
+
+</body>
+</html>
+
+
+
